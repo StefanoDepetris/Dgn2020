@@ -26,9 +26,9 @@ public class Turno {
 
     //------------------------------------CONSTRUCTOR-------------------------------------------------------------------
 
-    public Turno (Scanner sc) {
+    public Turno () {
         ++id;
-        paciente = new Paciente(sc);
+        paciente = new Paciente();
         ausente=false;
     }
 
@@ -50,7 +50,7 @@ public class Turno {
     } // Setea el turno personalizado en la fecha indicada.
     static boolean verificarFecha(String s, String hora) throws FechaIncorrectaException {
         ordenarFechas();
-        if (!fechas.get(0).getFecha().isBefore(LocalDate.parse(s))){
+        if (fechas.get(0).getFecha().isBefore(LocalDate.parse(s))){
             throw new FechaIncorrectaException();
         }
         LocalDate fechaBuscada = LocalDate.parse(s);

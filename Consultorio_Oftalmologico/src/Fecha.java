@@ -13,8 +13,7 @@ public class Fecha {
 
     //------------------------------------CONSTRUCTOR-------------------------------------------------------------------
 
-    public Fecha (LocalDate fecha)
-    {
+    public Fecha (LocalDate fecha){
         this.fecha=fecha;
         dia = new Dia(fecha.getDayOfWeek());
     }

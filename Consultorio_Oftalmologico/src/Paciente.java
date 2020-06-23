@@ -8,42 +8,32 @@ public class Paciente {
      BufferedReader br ;
      FormaDePago miForma;
 
-    public Paciente (Scanner sc) {
-        crearPaciente(sc);
+    public Paciente () {
+        crearPaciente();
     }
 
-    public void crearPaciente (Scanner input){
-       // Scanner sc = new Scanner(System.in);
+    private void crearPaciente (){
+
+        Scanner sc = new Scanner(System.in);
         System.out.println("PACIENTE: Ingrese nombre del paciente: ");
-        setNombre(input.nextLine());
+        setNombre(sc.nextLine());
         System.out.println("PACIENTE: Ingrese DNI sin puntos del paciente: ");
-        setDNI(input.nextInt());
+        setDNI(sc.nextInt());
         System.out.println("PACIENTE: Ingrese telefono del paciente: ");
-        setTelefono(input.nextLong());
+        setTelefono(sc.nextLong());
         System.out.println("PACIENTE: Paciente creado con éxito");
     }
-    public void setNombre(String nombre) {
-        this.nombre=nombre;
-    }
+    public void setNombre(String nombre) { this.nombre=nombre; }
     public void setDNI(int dni) {
-
         this.dni=dni;
     }
-    public void setTelefono(long telefono) {
-        this.telefono=telefono;
-    }
-    public String getNombre() {
-        return  nombre;
-    }
-    public Integer getDNI() {
-        return  dni;
-    }
-    public Long getTelefono() {
-        return  telefono;
-    }
-    public void pagarConsulta() {
-        miForma.pagar();
-    }
+    public void setTelefono(long telefono) { this.telefono=telefono; }
+    public String getNombre() { return  nombre; }
+    public Integer getDNI() { return  dni; }
+    public Long getTelefono() { return  telefono; }
+
+    public void pagarConsulta() { miForma.pagar(); }
+
     public void setFdp(FormaDePago fdp ) {
         miForma = fdp;
     }
