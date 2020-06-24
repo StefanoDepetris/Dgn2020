@@ -1,4 +1,3 @@
-import java.io.BufferedReader;
 import java.util.Scanner;
 
 public class Paciente {
@@ -21,6 +20,7 @@ public class Paciente {
         setTelefono(input.nextLong());
         System.out.println("PACIENTE: Paciente creado con éxito");
     }
+
     public void setNombre(String nombre) { this.nombre=nombre; }
     public void setDNI(int dni) {
         this.dni=dni;
