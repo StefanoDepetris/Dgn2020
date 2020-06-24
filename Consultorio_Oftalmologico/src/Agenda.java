@@ -44,7 +44,7 @@ public class Agenda implements Subject {
         t.proximoTurno();
         turnos.add(t);
         notificar();
-    } // Crea el próximo turno disponible
+    } // Crea el próximo turno disponible.
     private void ordenarTurnos(){
         turnos.sort(new Comparator<Turno>() {
             @Override
