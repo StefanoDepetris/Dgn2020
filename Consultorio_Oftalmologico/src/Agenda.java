@@ -102,7 +102,6 @@ public class Agenda implements Subject {
         return false;
     }
     public boolean pagar(Integer i) {
-
         Turno t = getTurno(i);
         try{
             t.pagarTurno();
