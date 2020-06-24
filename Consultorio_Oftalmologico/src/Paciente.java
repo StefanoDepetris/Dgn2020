@@ -11,7 +11,7 @@ public class Paciente {
     }
 
     public void crearPaciente (Scanner input){
-        // Scanner sc = new Scanner(System.in);
+
         System.out.println("PACIENTE: Ingrese nombre del paciente: ");
         setNombre(input.nextLine());
         System.out.println("PACIENTE: Ingrese DNI sin puntos del paciente: ");
