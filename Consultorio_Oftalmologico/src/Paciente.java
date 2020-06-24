@@ -5,7 +5,6 @@ public class Paciente {
      private String nombre;
      private Integer dni;
      private Long telefono;
-     BufferedReader br ;
      FormaDePago miForma;
 
     public Paciente (Scanner sc) {
