@@ -77,7 +77,10 @@ public class Dia {
     public void getDia() {
         System.out.println(dia.getDisplayName(TextStyle.FULL, new Locale("es")));
     } // imprime el nombre del dia
-    public void getHoras(){
+    public TreeMap<LocalTime, Boolean> getHoras(){
+        return horas;
+    }
+    public void imprimirHoras(){
         horas.forEach((k,v) -> System.out.println(k.toString() + " " + v));
     } //  imprime todas las horas y su disponibilidad
 

@@ -34,7 +34,7 @@ public class Turno {
 
     //--------------------------METODOS IMPORTANTES---------------------------------------------------------------------
 
-    public void setTurno(String fecha, String hora) {
+    public boolean setTurno(String fecha, String hora) {
         ordenarFechas();
         LocalDate fechaBuscada = LocalDate.parse(fecha);
         for (Fecha f : fechas){
@@ -42,11 +42,12 @@ public class Turno {
                 f.cambiarHora(hora);
                 setFecha(f, hora);
                 System.out.printf("TURNO: Turno personalizado agregado con éxito. Fecha y hora: %s \n", this);
-                return;
+                return true;
             }
         }
 
         System.out.println("TURNO: ERROR EN setTurno");
+        return false;
     } // Setea el turno personalizado en la fecha indicada.
     static boolean verificarFecha(String s, String hora) throws FechaIncorrectaException {
         ordenarFechas();

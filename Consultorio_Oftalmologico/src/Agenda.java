@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Agenda implements Subject {
 
-    private List<Turno> turnos;
-    private ArrayList<Observer> observers;
+    private final List<Turno> turnos;
+    private final ArrayList<Observer> observers;
     private final Scanner sc;
 
     public Agenda(Scanner sc){
@@ -44,7 +44,7 @@ public class Agenda implements Subject {
         t.proximoTurno();
         turnos.add(t);
         notificar();
-    } // Crea el próximo turno disponible.
+    } // Crea el próximo turno disponible
     private void ordenarTurnos(){
         turnos.sort(new Comparator<Turno>() {
             @Override
@@ -102,6 +102,7 @@ public class Agenda implements Subject {
         return false;
     }
     public boolean pagar(Integer i) {
+
         Turno t = getTurno(i);
         try{
             t.pagarTurno();
@@ -124,18 +125,22 @@ public class Agenda implements Subject {
     public List<Turno> getTurnos() {
         return turnos;
     }
-    public void Ausente(Integer i){
+    public boolean setAusente(Integer i){
 
         Turno t = getTurno(i);
         try {
             t.setAusente();
         }catch (NullPointerException a) {
             System.out.println("AGENDA EXCEPTION: El turno no existe");
-            return;
+            return false;
         }
         turnos.remove(t);
         notificar();
         System.out.println("AGENDA: Turno marcado como ausente y borrado.");
+        return true;
+    }
+    public void reiniciarAgenda(){
+        turnos.clear();
     }
 
     //------------------------------------OBSERVERS---------------------------------------------------------------------
