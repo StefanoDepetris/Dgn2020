@@ -5,22 +5,20 @@ public class Paciente {
      private String nombre;
      private Integer dni;
      private Long telefono;
-     BufferedReader br ;
      FormaDePago miForma;
 
-    public Paciente () {
-        crearPaciente();
+    public Paciente (Scanner sc) {
+        crearPaciente(sc);
     }
 
-    private void crearPaciente (){
+    public void crearPaciente (Scanner input){
 
-        Scanner sc = new Scanner(System.in);
         System.out.println("PACIENTE: Ingrese nombre del paciente: ");
-        setNombre(sc.nextLine());
+        setNombre(input.nextLine());
         System.out.println("PACIENTE: Ingrese DNI sin puntos del paciente: ");
-        setDNI(sc.nextInt());
+        setDNI(input.nextInt());
         System.out.println("PACIENTE: Ingrese telefono del paciente: ");
-        setTelefono(sc.nextLong());
+        setTelefono(input.nextLong());
         System.out.println("PACIENTE: Paciente creado con éxito");
     }
     public void setNombre(String nombre) { this.nombre=nombre; }

@@ -26,9 +26,9 @@ public class Turno {
 
     //------------------------------------CONSTRUCTOR-------------------------------------------------------------------
 
-    public Turno () {
+    public Turno (Scanner sc) {
         ++id;
-        paciente = new Paciente();
+        paciente = new Paciente(sc);
         ausente=false;
     }
 
