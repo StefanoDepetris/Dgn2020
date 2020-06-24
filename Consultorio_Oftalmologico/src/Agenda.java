@@ -5,17 +5,19 @@ public class Agenda implements Subject {
 
     private List<Turno> turnos;
     private ArrayList<Observer> observers;
+    private final Scanner sc;
 
-    public Agenda(){
+    public Agenda(Scanner sc){
         turnos = new ArrayList<>();
         observers = new ArrayList<>();
+        this.sc = sc;
     }
 
     public boolean crearTurno(String fecha, String hora) {
 
         try {
             if (Turno.verificarFecha(fecha, hora)) {
-                Turno t = new Turno();
+                Turno t = new Turno(sc);
                 t.setTurno(fecha, hora);
                 turnos.add(t);
                 System.out.println("AGENDA: turno agregado con exito");
@@ -38,7 +40,7 @@ public class Agenda implements Subject {
 
     } // False si está ocupada esa hora. True en cualquier otro caso.
     public void crearTurno (){
-        Turno t = new Turno();
+        Turno t = new Turno(sc);
         t.proximoTurno();
         turnos.add(t);
         notificar();
