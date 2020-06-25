@@ -13,7 +13,8 @@ public class Fecha {
 
     //------------------------------------CONSTRUCTOR-------------------------------------------------------------------
 
-    public Fecha (LocalDate fecha){
+    public Fecha (LocalDate fecha)
+    {
         this.fecha=fecha;
         dia = new Dia(fecha.getDayOfWeek());
     }
@@ -41,7 +42,7 @@ public class Fecha {
     @Override
     public String toString() {
         return dia + " " + fecha.getDayOfMonth() +
-                    " de " + fecha.getMonth().getDisplayName(TextStyle.FULL, new Locale("es"));
+                " de " + fecha.getMonth().getDisplayName(TextStyle.FULL, new Locale("es"));
     }
 
 }

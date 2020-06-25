@@ -2,6 +2,9 @@
 public class TarjetaDebito implements FormaDePago {
 
     public void pagar() {
-        System.out.println("Pago con debito");
+        System.out.println(this);
+    }
+    public String toString(){
+        return "Pago con debito";
     }
 }

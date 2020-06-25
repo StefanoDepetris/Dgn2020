@@ -40,8 +40,8 @@ public class Dia {
         return horas.containsValue(true);
     } //Te dice si alguna hora de dia está disponible
     public void CambiaEstadoDeHora (String h) {
-            Boolean b = !horas.get(LocalTime.parse(h));
-            horas.put(LocalTime.parse(h), b);
+        Boolean b = !horas.get(LocalTime.parse(h));
+        horas.put(LocalTime.parse(h), b);
     } // Cambia el estado (boolean) de una determinada hora
     public boolean verificar (String h) {
         try {
@@ -77,10 +77,11 @@ public class Dia {
     public void getDia() {
         System.out.println(dia.getDisplayName(TextStyle.FULL, new Locale("es")));
     } // imprime el nombre del dia
-    public void getHoras(){
+    public TreeMap<LocalTime, Boolean> getHoras(){
+        return horas;
+    }
+    public void imprimirHoras(){
         horas.forEach((k,v) -> System.out.println(k.toString() + " " + v));
     } //  imprime todas las horas y su disponibilidad
 
 }
-
-

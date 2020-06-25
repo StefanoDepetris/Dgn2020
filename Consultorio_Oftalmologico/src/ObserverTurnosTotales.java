@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class ObserverTurnosTotales implements Display, Observer {
 
     private Agenda miAgenda;
