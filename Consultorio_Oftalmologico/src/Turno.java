@@ -76,7 +76,7 @@ public class Turno {
             if(f.verificarDisponibilidad()){
                 String hora = f.obtenerProximaHora();
                 setFecha(f,hora);
-                System.out.printf("TURNO: Turno agregado en el proximo horario disponible. %s \n", this);
+                System.out.printf("TURNO: Turno agregado en el proximo horario disponible. \n \t %s", this);
                 return;
             }
         }
@@ -93,18 +93,20 @@ public class Turno {
 
     public void pagarTurno(Integer a) {
         if (!paciente.getDebe()){
-            System.out.println("TURNO: El turno ya se ha pagado amteriormente.");
+            System.out.println("TURNO: El turno ya se ha pagado anteriormente." + paciente.toString());
             return;
         }
         switch (a){
             case 0:
-                paciente.setFdp(new TarjetaDebito());
+                paciente.setFdp(new Efectivo());
                 break;
             case 1:
+                paciente.setFdp(new TarjetaDebito());
+                break;
+            case 2:
                 paciente.setFdp(new TarjetaCredito());
                 break;
         }
-
         paciente.pagarConsulta();
     }
     public boolean comprobarPaciente(String nombre) {
@@ -145,7 +147,7 @@ public class Turno {
 
     @Override
     public String toString(){
-        return "Fecha: " + fecha + " a las " + hora + "Paciente: " + paciente.toString();
+        return "Fecha: " + fecha + " a las " + hora + ".\n \t Paciente: " + paciente.toString() + "\n";
     }
 
     //-----------------------------METODOS DE PRUEBA--------------------------------------------------------------------

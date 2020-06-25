@@ -19,7 +19,7 @@ class AgendaTest {
     }
     @Test
     public void crearTurnoSinFechaProximoDisponible() {
-        agenda.crearTurno(40775432,"3804807274","Marcos");
+        agenda.crearTurno("Marcos",40775432,"3804807274");
 
     }
 
@@ -42,8 +42,6 @@ class AgendaTest {
         assertFalse(agenda.quitarTurno(213));
     }
 
-
-
     @Test
     public void cambioTurnos() {
         agenda.crearTurno("2020-07-24", "11:30","Marcos",40775432,"38048442");
@@ -52,7 +50,7 @@ class AgendaTest {
 
     @Test
     public void pagarTurnoInexistente() {
-        assertFalse(agenda.pagar(123));
+        assertFalse(agenda.pagar(123, null));
     }
 
     @Test
@@ -61,6 +59,7 @@ class AgendaTest {
         assertTrue(agenda.setAusente(40775432));
         assertFalse(agenda.setAusente(40775432));
     }
+
 
 
 

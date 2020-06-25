@@ -36,7 +36,7 @@ public class Agenda implements Subject {
         return false;
 
     } // False si está ocupada esa hora. True en cualquier otro caso.
-    public void crearTurno(Integer dni, String telefono, String nombre){
+    public void crearTurno(String nombre, Integer dni, String telefono){
         Turno t = new Turno(nombre, dni, telefono);
         t.proximoTurno();
         turnos.add(t);
@@ -84,7 +84,7 @@ public class Agenda implements Subject {
 
                     t.borrarTurno();
                     t.setTurno(fecha, hora);
-                    System.out.print("AGENDA: Turno cambiado con éxito.");
+                    System.out.println("AGENDA: Turno cambiado con éxito.");
                     return true;
 
             }
@@ -92,20 +92,20 @@ public class Agenda implements Subject {
             System.out.println("AGENDA EXCEPTION: Ha introducido una fecha invalida. No se creado el turno");
             return false;
         } catch (NullPointerException e) {
-            System.out.print("AGENDA EXCEPTION: ERROR. Paciente no encontrado.");
+            System.out.println("AGENDA EXCEPTION: ERROR. Paciente no encontrado.");
             return false;
         }
-        System.out.print("AGENDA: Horario no disponible.");
+        System.out.println("AGENDA: Horario no disponible.");
         return false;
     }
-    public boolean pagar(Integer IDoDNI) {
+    public boolean pagar(Integer IDoDNI, Integer forma) {
 
         Turno t = getTurno(IDoDNI);
         try{
-            t.pagarTurno(IDoDNI);
+            t.pagarTurno(forma);
             return true;
         } catch (NullPointerException a){
-            System.out.print("AGENDA: No existe el turno solicitado. No se realizo el pago.");
+            System.out.println("AGENDA: No existe el turno solicitado. No se realizo el pago.");
             return false;
         }
     }
@@ -122,9 +122,9 @@ public class Agenda implements Subject {
     public List<Turno> getTurnos() {
         return turnos;
     }
-    public boolean setAusente(Integer i){
+    public boolean setAusente(Integer IDoDNI){
 
-        Turno t = getTurno(i);
+        Turno t = getTurno(IDoDNI);
         try {
             t.setAusente();
         }catch (NullPointerException a) {

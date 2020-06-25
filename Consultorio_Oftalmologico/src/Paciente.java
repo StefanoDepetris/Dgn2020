@@ -52,8 +52,8 @@ public class Paciente {
 
     @Override
     public String toString(){
-        String s = this.getDebe() ? "Si": miForma.toString();
-        return this.getNombre() + this.getDNI() + this.getTelefono() + s;
+        String s = this.getDebe() ? "Si": "No. " + miForma.toString();
+        return this.getNombre() + ", DNI: " + this.getDNI() + ", Telefono: " + this.getTelefono() + ", Debe: " + s;
     }
 
 
