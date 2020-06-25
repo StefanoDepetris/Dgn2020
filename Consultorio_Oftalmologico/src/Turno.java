@@ -16,6 +16,7 @@ public class Turno {
 
     static private ArrayList<Fecha> fechas;
     static private Integer id;
+    private Integer myid;
 
     static  {
         fechas = new ArrayList<>();
@@ -26,9 +27,9 @@ public class Turno {
 
     //------------------------------------CONSTRUCTOR-------------------------------------------------------------------
 
-    public Turno (Scanner sc) {
-        ++id;
-        paciente = new Paciente(sc);
+    public Turno (String nombre, Integer dni, String telefono ) {
+        myid = ++id;
+        paciente = new Paciente(nombre, dni, telefono);
         ausente=false;
     }
 
@@ -41,7 +42,7 @@ public class Turno {
             if (f.getFecha().equals(fechaBuscada)){
                 f.cambiarHora(hora);
                 setFecha(f, hora);
-                System.out.printf("TURNO: Turno personalizado agregado con éxito. Fecha y hora: %s \n", this);
+                System.out.printf("TURNO: Turno personalizado agregado con éxito. %s \n", this);
                 return;
             }
         }
@@ -75,7 +76,7 @@ public class Turno {
             if(f.verificarDisponibilidad()){
                 String hora = f.obtenerProximaHora();
                 setFecha(f,hora);
-                System.out.printf("TURNO: Turno agregado con éxito. Fecha y hora: %s \n", this);
+                System.out.printf("TURNO: Turno agregado en el proximo horario disponible. %s \n", this);
                 return;
             }
         }
@@ -90,7 +91,20 @@ public class Turno {
 
     //----------------------------METODOS SIMPLES-----------------------------------------------------------------------
 
-    public void pagarTurno() {
+    public void pagarTurno(Integer a) {
+        if (!paciente.getDebe()){
+            System.out.println("TURNO: El turno ya se ha pagado amteriormente.");
+            return;
+        }
+        switch (a){
+            case 0:
+                paciente.setFdp(new TarjetaDebito());
+                break;
+            case 1:
+                paciente.setFdp(new TarjetaCredito());
+                break;
+        }
+
         paciente.pagarConsulta();
     }
     public boolean comprobarPaciente(String nombre) {
@@ -115,7 +129,7 @@ public class Turno {
         });
     } // Ordena la lista de fechas
     public Integer getID () {
-        return id;
+        return myid;
     } //Devuelve el id de turno
     public void borrarTurno() {
         fecha.cambiarHora(hora.toString());
@@ -128,10 +142,10 @@ public class Turno {
         borrarTurno();
     }
 
+
     @Override
     public String toString(){
-
-        return "Paciente: " + paciente.getNombre() + ", Fecha: " + fecha + " a las " + hora;
+        return "Fecha: " + fecha + " a las " + hora + "Paciente: " + paciente.toString();
     }
 
     //-----------------------------METODOS DE PRUEBA--------------------------------------------------------------------

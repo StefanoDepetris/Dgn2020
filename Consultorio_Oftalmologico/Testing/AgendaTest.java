@@ -1,46 +1,68 @@
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
-import java.util.Scanner;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.*;
 
 
 class AgendaTest {
-    String testInput = "Stefano\n" + // Nombre
-            "123\n" + // DNI
-            "123"; // Telefono
-    Scanner mockScanner = new Scanner(testInput);
-    Agenda agenda = new Agenda(mockScanner);
+    Agenda agenda = new Agenda();
 
-    @Test
-    void crearTurno() {
-        assertEquals(true, agenda.crearTurno("2020-06-24", "12:00"));
-    }
-    @Test
-    void crearTurnodoble() {
-        assertEquals(true, agenda.crearTurno("2020-06-24", "11:30"));
-        assertEquals(false, agenda.crearTurno("2020-06-24", "11:30"));
-    }
-    @Test
-    void quitarTurno() {
-        agenda.crearTurno("2020-06-24", "10:30");
-        assertEquals(true, agenda.quitarTurno(1));
-    }
-    @Test
-    void quitarTurnoNoExistente() {
-        //agenda.crearTurno("2020-06-24", "10:30");
-        assertEquals(false, agenda.quitarTurno(213));
-    }
-    @Test
-    void cambioTurno() {
 
-        agenda.crearTurno("2020-06-25", "12:00");
-        assertEquals(true, agenda.cambioTurno(4, "2020-06-24", "08:00"));
+    @Before
+    public void iniciarComponentes() {
+            agenda.reiniciarAgenda();
     }
 
     @Test
-    void pagarNopresente() {
-        agenda.crearTurno("2020-06-24", "08:30");
-        assertEquals(false, agenda.pagar(6));
+    public void crearTurno() {
+        assertTrue(agenda.crearTurno("2020-07-25", "12:00","Marcos",40775432,"38048442"));
     }
+    @Test
+    public void crearTurnoSinFechaProximoDisponible() {
+        agenda.crearTurno(40775432,"3804807274","Marcos");
+
+    }
+
+    @Test
+    public void crearTurnodoble() {
+        assertTrue(agenda.crearTurno("2020-07-24", "11:30","Marcos",40775432,"38048442"));
+        assertFalse(agenda.crearTurno("2020-07-24", "11:30","Stefano",405552,"38048542"));
+
+    }
+
+    @Test
+    public void quitarTurno() {
+        agenda.crearTurno("2020-07-24", "11:30","Marcos",407756432,"38048442");
+        assertTrue(agenda.quitarTurno(407756432));
+        assertNull(agenda.getTurno(40775432));
+    }
+
+    @Test
+    public void quitarTurnoNoExistente() {
+        assertFalse(agenda.quitarTurno(213));
+    }
+
+
+
+    @Test
+    public void cambioTurnos() {
+        agenda.crearTurno("2020-07-24", "11:30","Marcos",40775432,"38048442");
+        assertTrue(agenda.cambioTurno(40775432, "2020-07-28", "09:00"));
+    }
+
+    @Test
+    public void pagarTurnoInexistente() {
+        assertFalse(agenda.pagar(123));
+    }
+
+    @Test
+    public void PacienteAusenteTurnoBorrado() {
+        agenda.crearTurno("2020-07-24", "11:30","Marcos",40775432,"38048442");
+        assertTrue(agenda.setAusente(40775432));
+        assertFalse(agenda.setAusente(40775432));
+    }
+
+
+
+
 }

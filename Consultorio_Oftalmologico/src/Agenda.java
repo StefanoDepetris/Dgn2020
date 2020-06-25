@@ -3,24 +3,21 @@ import java.util.*;
 
 public class Agenda implements Subject {
 
-    private List<Turno> turnos;
-    private ArrayList<Observer> observers;
-    private final Scanner sc;
+    private final List<Turno> turnos;
+    private final ArrayList<Observer> observers;
 
-    public Agenda(Scanner sc){
+    public Agenda(){
         turnos = new ArrayList<>();
         observers = new ArrayList<>();
-        this.sc = sc;
     }
 
-    public boolean crearTurno(String fecha, String hora) {
+    public boolean crearTurno(String fecha, String hora, String nombre, Integer dni, String telefono) {
 
         try {
             if (Turno.verificarFecha(fecha, hora)) {
-                Turno t = new Turno(sc);
+                Turno t = new Turno(nombre, dni, telefono);
                 t.setTurno(fecha, hora);
                 turnos.add(t);
-                System.out.println("AGENDA: turno agregado con exito");
                 notificar();
                 return true;
             }
@@ -39,12 +36,12 @@ public class Agenda implements Subject {
         return false;
 
     } // False si está ocupada esa hora. True en cualquier otro caso.
-    public void crearTurno (){
-        Turno t = new Turno(sc);
+    public void crearTurno(Integer dni, String telefono, String nombre){
+        Turno t = new Turno(nombre, dni, telefono);
         t.proximoTurno();
         turnos.add(t);
         notificar();
-    } // Crea el próximo turno disponible.
+    } // Crea el próximo turno disponible
     private void ordenarTurnos(){
         turnos.sort(new Comparator<Turno>() {
             @Override
@@ -54,19 +51,19 @@ public class Agenda implements Subject {
         });
 
     } // Ordena los turnos por id
-    public Turno getTurno(Integer i) {
+    public Turno getTurno(Integer IDoDNI) {
         for (Turno t : turnos){
-            if(t.getID().equals(i)){
+            if(t.getID().equals(IDoDNI)){
                 return t;
-            } else if (t.comprobarDNI(i)){
+            } else if (t.comprobarDNI(IDoDNI)){
                 return t;
             }
         }
         return null;
     }
-    public boolean quitarTurno(Integer i) {
+    public boolean quitarTurno(Integer IDoDNI) {
 
-        Turno t = getTurno(i);
+        Turno t = getTurno(IDoDNI);
         try{
             t.borrarTurno();
         } catch (NullPointerException e) {
@@ -78,12 +75,12 @@ public class Agenda implements Subject {
         notificar();
         return true;
     }
-    public boolean cambioTurno (Integer i,String fecha, String hora) {
+    public boolean cambioTurno (Integer IDoDNI,String fecha, String hora) {
 
         try {
             if (Turno.verificarFecha(fecha, hora)) {
 
-                Turno t = getTurno(i);
+                Turno t = getTurno(IDoDNI);
 
                     t.borrarTurno();
                     t.setTurno(fecha, hora);
@@ -101,10 +98,11 @@ public class Agenda implements Subject {
         System.out.print("AGENDA: Horario no disponible.");
         return false;
     }
-    public boolean pagar(Integer i) {
-        Turno t = getTurno(i);
+    public boolean pagar(Integer IDoDNI) {
+
+        Turno t = getTurno(IDoDNI);
         try{
-            t.pagarTurno();
+            t.pagarTurno(IDoDNI);
             return true;
         } catch (NullPointerException a){
             System.out.print("AGENDA: No existe el turno solicitado. No se realizo el pago.");
@@ -124,18 +122,25 @@ public class Agenda implements Subject {
     public List<Turno> getTurnos() {
         return turnos;
     }
-    public void Ausente(Integer i){
+    public boolean setAusente(Integer i){
 
         Turno t = getTurno(i);
         try {
             t.setAusente();
         }catch (NullPointerException a) {
             System.out.println("AGENDA EXCEPTION: El turno no existe");
-            return;
+            return false;
         }
         turnos.remove(t);
         notificar();
         System.out.println("AGENDA: Turno marcado como ausente y borrado.");
+        return true;
+    }
+    public void reiniciarAgenda(){
+        for (Turno t : getTurnos()){
+            t.borrarTurno();
+        }
+        turnos.clear();
     }
 
     //------------------------------------OBSERVERS---------------------------------------------------------------------
